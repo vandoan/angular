@@ -1,0 +1,20 @@
+namespace
+	a name scope, is an abstract container or environment created to hold a logical grouping of unique identifiers or symbols (i.e. names). An identifier defined in a namespace is associated only with that namespace.
+
+webpack
+
+$ npm run serve
+
+component decorators
+
+component = template + class + decorator
+
+
+directives
+	control visibility
+	apply styling
+	loop over items
+	extend application with custom scripts
+	- types: component: structural, attributes
+
+	
