@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeroDetailComponent } from './hero-detail.component';
+import { Hero } from './hero';
 import { HeroService } from './hero.service';
 
 
@@ -7,11 +7,16 @@ import { HeroService } from './hero.service';
   selector: 'my-app',
   template: `
   	<h1>{{title}}</h1>
-   
+   <h2>My Heroes</h2>
 
     <ul class="heroes">
-      <li [class.selected]="hero === selectedHero" *ngFor="let hero of heroes" (click)="onSelect(hero)">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
+      <li
+       [class.selected]="hero === selectedHero"
+       *ngFor="let hero of heroes" 
+       (click)="onSelect(hero)"
+      >
+        <span class="badge">{{hero.id}}</span>
+        {{hero.name}}
       </li>
     </ul> 
 
@@ -67,7 +72,10 @@ import { HeroService } from './hero.service';
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
-`]
+`],
+ 
+// providers array tells Angular to create a fresh instance of the HeroService when it creates an AppComponent
+ providers: [HeroService],
 
 })
 
@@ -77,16 +85,21 @@ export class AppComponent  {
   heroes: Hero[];
   selectedHero: Hero;
 	
+  // contructor  defines a private heroService property and identifies it as a HeroService injection site
+  constructor(private heroService: HeroService) { }
+
+  getHeroes(): void {
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
   };
 };
-
-export class Hero {
-	id: number;
-	name: string;
-}
-
 
 
 
